@@ -1,5 +1,5 @@
 import postgres from 'postgres';
-import { LatestInvoiceRaw } from '../lib/definitions';
+// import { LatestInvoiceRaw } from '../lib/definitions';
 
 const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require' });
 

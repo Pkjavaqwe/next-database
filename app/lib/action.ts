@@ -4,13 +4,13 @@ import { redirect } from "next/navigation";
 import postgres from "postgres";
 import { z } from "zod";
 
-export const State = {
+export type State = {
     errors?: {
         customerId?: string[],
         amount?: string[],
         status?: string[],
     },
-    message?: string | null;
+    message?: string | null,
 }
 const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require' })
 export async function createInvoice(prevState: State, formData: FormData) {
@@ -51,7 +51,7 @@ const formSchema = z.object({
     }),
     amount: z.coerce
         .number()
-        .gt(0, { message: 'Please enter an amount greater than Rs50.' }),
+        .gt(50, { message: 'Please enter an amount greater than Rs50.' }),
     status: z.enum(['pending', 'paid'], { invalid_type_error: 'please select an invoice status' }),
     date: z.string(),
 });
